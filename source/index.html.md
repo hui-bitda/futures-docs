@@ -721,14 +721,14 @@ curl "https://api.bitda.com/open/api/v2/market/kline"
   "msg": "success",
   "data": [
     [
-      1697560680,
-      "1571.23",
-      "1571.23",
-      "1571.23",
-      "1571.23",
-      "0",
-      "0",
-      "ETHUSDT"
+      {
+        "open": "1571.23",
+        "high": "1573.89",
+        "low": "1571.23",
+        "close": "1573.89",
+        "volume": "3.02",
+        "time": 1697620709569
+      }
     ]
   ]
 }
@@ -738,14 +738,12 @@ curl "https://api.bitda.com/open/api/v2/market/kline"
 
 | Field name | Data Type | Description |
 | :--------: | :-------: | :---------: |
-|   data.0   |  integer  |             |
-|   data.1   |  string   |             |
-|   data.2   |  string   |             |
-|   data.3   |  string   |             |
-|   data.4   |  string   |             |
-|   data.5   |  integer  |             |
-|   data.6   |  string   |             |
-|   data.7   |  integer  |    Pair     |
+|    time    |  integer  |             |
+|    open    |  string   |             |
+|    high    |  string   |             |
+|    low     |  string   |             |
+|   close    |  string   |             |
+|   volume   |  string   |             |
 
 ## Get Market List
 
@@ -1573,6 +1571,52 @@ curl "https://api.bitda.com/open/api/v2/order/detail"
 |      status       |  integer  |             |
 |  stop_loss_price  |  string   |             |
 | take_profit_price |  string   |             |
+
+## Cancel Order Batch
+
+```shell
+curl "https://api.bitda.com/open/api/v2/order/cancel/batch"
+```
+
+### HTTP query
+- POST `/open/api/v2/order/cancel/batch`
+
+<aside class="Notice">Rate limit 6r/s</aside>
+
+### Request parameters
+**Headers**
+
+| Field Name   | Value            | Required | Example | Remark |
+| ------------ | ---------------- | -------- | ------- | ------ |
+| Content-Type | application/json | Yes      |         |        |
+**Body**
+
+| Field name | Data Type | Required | Description |
+| :--------: | :-------: | :------: | :---------: |
+|   market   |  string   |   Yes    | Market name |
+| order_ids  |  string   |   Yes    |  Order ids  |
+
+> Responds:
+
+```json
+{
+  "code": 0, 
+  "msg": "success", 
+  "data": {
+    "order_ids": [
+      1470445037,
+      1470445038
+    ]
+  }
+}
+
+```
+
+### Response Content
+
+| Field name | Data Type | Description |
+| :--------: | :-------: | :---------: |
+|    data    |  integer  |             |
 
 ## Cancel Order
 
