@@ -351,6 +351,9 @@
                     <a href="#get-order-details" class="toc-h2 toc-link" data-title="Get Order Details">Get Order Details</a>
                   </li>
                   <li>
+                    <a href="#cancel-order-batch" class="toc-h2 toc-link" data-title="Cancel Order Batch">Cancel Order Batch</a>
+                  </li>
+                  <li>
                     <a href="#cancel-order" class="toc-h2 toc-link" data-title="Cancel Order">Cancel Order</a>
                   </li>
                   <li>
@@ -1698,14 +1701,14 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
   </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">[</span><span class="w">
-      </span><span class="mi">1697560680</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"1571.23"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"1571.23"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"1571.23"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"1571.23"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"ETHUSDT"</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"open"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1571.23"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"high"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1573.89"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"low"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1571.23"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"close"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1573.89"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"volume"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.02"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1697620709569</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -1718,44 +1721,34 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 </tr>
 </thead><tbody>
 <tr>
-<td style="text-align: center">data.0</td>
+<td style="text-align: center">time</td>
 <td style="text-align: center">integer</td>
 <td style="text-align: center"></td>
 </tr>
 <tr>
-<td style="text-align: center">data.1</td>
+<td style="text-align: center">open</td>
 <td style="text-align: center">string</td>
 <td style="text-align: center"></td>
 </tr>
 <tr>
-<td style="text-align: center">data.2</td>
+<td style="text-align: center">high</td>
 <td style="text-align: center">string</td>
 <td style="text-align: center"></td>
 </tr>
 <tr>
-<td style="text-align: center">data.3</td>
+<td style="text-align: center">low</td>
 <td style="text-align: center">string</td>
 <td style="text-align: center"></td>
 </tr>
 <tr>
-<td style="text-align: center">data.4</td>
+<td style="text-align: center">close</td>
 <td style="text-align: center">string</td>
 <td style="text-align: center"></td>
 </tr>
 <tr>
-<td style="text-align: center">data.5</td>
-<td style="text-align: center">integer</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">data.6</td>
+<td style="text-align: center">volume</td>
 <td style="text-align: center">string</td>
 <td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">data.7</td>
-<td style="text-align: center">integer</td>
-<td style="text-align: center">Pair</td>
 </tr>
 </tbody></table>
 <h2 id='get-market-list'>Get Market List</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/market/list"</span>
@@ -3503,14 +3496,94 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 <td style="text-align: center"></td>
 </tr>
 </tbody></table>
-<h2 id='cancel-order'>Cancel Order</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/order/cancel"</span>
+<h2 id='cancel-order-batch'>Cancel Order Batch</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/order/cancel/batch"</span>
 </code></pre></div><h3 id='http-query-13'>HTTP query</h3>
+<ul>
+<li>POST <code>/open/api/v2/order/cancel/batch</code></li>
+</ul>
+
+<aside class="Notice">Rate limit 6r/s</aside>
+<h3 id='request-parameters-21'>Request parameters</h3>
+<p><strong>Headers</strong></p>
+
+<table><thead>
+<tr>
+<th>Field Name</th>
+<th>Value</th>
+<th>Required</th>
+<th>Example</th>
+<th>Remark</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+<td>Yes</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p><strong>Body</strong></p>
+
+<table><thead>
+<tr>
+<th style="text-align: center">Field name</th>
+<th style="text-align: center">Data Type</th>
+<th style="text-align: center">Required</th>
+<th style="text-align: center">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">market</td>
+<td style="text-align: center">string</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">Market name</td>
+</tr>
+<tr>
+<td style="text-align: center">order_ids</td>
+<td style="text-align: center">string</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">Order ids</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Responds:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w"> 
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"order_ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="mi">1470445037</span><span class="p">,</span><span class="w">
+      </span><span class="mi">1470445038</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div><h3 id='response-content-13'>Response Content</h3>
+<table><thead>
+<tr>
+<th style="text-align: center">Field name</th>
+<th style="text-align: center">Data Type</th>
+<th style="text-align: center">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">data</td>
+<td style="text-align: center">integer</td>
+<td style="text-align: center"></td>
+</tr>
+</tbody></table>
+<h2 id='cancel-order'>Cancel Order</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/order/cancel"</span>
+</code></pre></div><h3 id='http-query-14'>HTTP query</h3>
 <ul>
 <li>POST <code>/open/api/v2/order/cancel</code></li>
 </ul>
 
 <aside class="Notice">Rate limit 6r/s</aside>
-<h3 id='request-parameters-21'>Request parameters</h3>
+<h3 id='request-parameters-22'>Request parameters</h3>
 <p><strong>Headers</strong></p>
 
 <table><thead>
@@ -3564,7 +3637,7 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="mi">1471202902</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='response-content-13'>Response Content</h3>
+</span></code></pre></div><h3 id='response-content-14'>Response Content</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -3579,11 +3652,11 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 </tr>
 </tbody></table>
 <h2 id='submit-limit-order'>Submit Limit Order</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="s2">"https://api.bitda.com/open/api/v2/order/limit"</span>
-</code></pre></div><h3 id='http-query-14'>HTTP query</h3>
+</code></pre></div><h3 id='http-query-15'>HTTP query</h3>
 <ul>
 <li>POST <code>/open/api/v2/order/limit</code></li>
 </ul>
-<h3 id='request-parameters-22'>Request parameters</h3>
+<h3 id='request-parameters-23'>Request parameters</h3>
 <p><strong>Headers</strong></p>
 
 <table><thead>
@@ -3685,7 +3758,7 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="mi">1471038436</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='response-content-14'>Response Content</h3>
+</span></code></pre></div><h3 id='response-content-15'>Response Content</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -3701,13 +3774,13 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 </tbody></table>
 <h2 id='get-the-entrusted-order'>Get the entrusted order</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="s2">"https://api.bitda.com/open/api/v2/order/pending"</span>
 
-</code></pre></div><h3 id='http-query-15'>HTTP query</h3>
+</code></pre></div><h3 id='http-query-16'>HTTP query</h3>
 <ul>
 <li>GET <code>/open/api/v2/order/pending</code></li>
 </ul>
 
 <aside class="Notice">Rate limit 6r/s</aside>
-<h3 id='request-parameters-23'>Request parameters</h3>
+<h3 id='request-parameters-24'>Request parameters</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -3773,7 +3846,7 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='response-content-15'>Response Content</h3>
+</span></code></pre></div><h3 id='response-content-16'>Response Content</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -3904,13 +3977,13 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 </tbody></table>
 <h2 id='submit-stop-order'>Submit stop order</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="s2">"https://api.bitda.com/open/api/v2/order/stop"</span>
 
-</code></pre></div><h3 id='http-query-16'>HTTP query</h3>
+</code></pre></div><h3 id='http-query-17'>HTTP query</h3>
 <ul>
 <li>POST <code>/open/api/v2/order/stop</code></li>
 </ul>
 
 <aside class="Notice">Rate limit 5r/s</aside>
-<h3 id='request-parameters-24'>Request parameters</h3>
+<h3 id='request-parameters-25'>Request parameters</h3>
 <p><strong>Headers</strong></p>
 
 <table><thead>
@@ -3990,7 +4063,7 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w"> </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='response-content-16'>Response Content</h3>
+</span></code></pre></div><h3 id='response-content-17'>Response Content</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -4005,13 +4078,13 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 </tr>
 </tbody></table>
 <h2 id='cancel-stop-order'>Cancel stop order</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/order/stop/cancel"</span>
-</code></pre></div><h3 id='http-query-17'>HTTP query</h3>
+</code></pre></div><h3 id='http-query-18'>HTTP query</h3>
 <ul>
 <li>POST <code>/open/api/v2/order/stop/cancel</code></li>
 </ul>
 
 <aside class="Notice">Rate limit 10r/s</aside>
-<h3 id='request-parameters-25'>Request parameters</h3>
+<h3 id='request-parameters-26'>Request parameters</h3>
 <p><strong>Headers</strong></p>
 
 <table><thead>
@@ -4064,7 +4137,7 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
   </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="mi">1471202902</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='response-content-17'>Response Content</h3>
+</span></code></pre></div><h3 id='response-content-18'>Response Content</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -4082,11 +4155,11 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 <aside class="Notice">Rate limit 1r/s</aside>
 <h2 id='cancel-all-stop-orders-for-a-single-market'>Cancel all stop orders for a single market</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/order/stop/cancel/all"</span>
 
-</code></pre></div><h3 id='http-query-18'>HTTP query</h3>
+</code></pre></div><h3 id='http-query-19'>HTTP query</h3>
 <ul>
 <li>POST <code>/open/api/v2/order/stop/cancel/all</code></li>
 </ul>
-<h3 id='request-parameters-26'>Request parameters</h3>
+<h3 id='request-parameters-27'>Request parameters</h3>
 <p><strong>Headers</strong></p>
 
 <table><thead>
@@ -4133,7 +4206,7 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
   </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='response-content-18'>Response Content</h3>
+</span></code></pre></div><h3 id='response-content-19'>Response Content</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -4149,11 +4222,11 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 </tbody></table>
 <h2 id='get-the-stop-order-in-the-commission'>Get the stop order in the commission</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/order/stop/pending"</span>
 
-</code></pre></div><h3 id='http-query-19'>HTTP query</h3>
+</code></pre></div><h3 id='http-query-20'>HTTP query</h3>
 <ul>
 <li>GET <code>/open/api/v2/order/stop/pending</code></li>
 </ul>
-<h3 id='request-parameters-27'>Request parameters</h3>
+<h3 id='request-parameters-28'>Request parameters</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -4213,192 +4286,6 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
     </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="nl">"page_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='response-content-19'>Response Content</h3>
-<table><thead>
-<tr>
-<th style="text-align: center">Field name</th>
-<th style="text-align: center">Data Type</th>
-<th style="text-align: center">Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: center">records</td>
-<td style="text-align: center">array</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0</td>
-<td style="text-align: center">object</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0.contract_order_id</td>
-<td style="text-align: center">string</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0.order_id</td>
-<td style="text-align: center">integer</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0.position_id</td>
-<td style="text-align: center">integer</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0.market</td>
-<td style="text-align: center">string</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0.contract_order_type</td>
-<td style="text-align: center">integer</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0.trigger_type</td>
-<td style="text-align: center">integer</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0.trigger_price</td>
-<td style="text-align: center">string</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0.order_price</td>
-<td style="text-align: center">string</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0.size</td>
-<td style="text-align: center">string</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0.order_time</td>
-<td style="text-align: center">integer</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0.update_time</td>
-<td style="text-align: center">integer</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0.cut_price</td>
-<td style="text-align: center">string</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0.status</td>
-<td style="text-align: center">integer</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0.side</td>
-<td style="text-align: center">integer</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0.position_type</td>
-<td style="text-align: center">integer</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0.leverage</td>
-<td style="text-align: center">string</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">records.0.entrust_id</td>
-<td style="text-align: center">string</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">page</td>
-<td style="text-align: center">integer</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">page_size</td>
-<td style="text-align: center">integer</td>
-<td style="text-align: center"></td>
-</tr>
-<tr>
-<td style="text-align: center">count</td>
-<td style="text-align: center">integer</td>
-<td style="text-align: center"></td>
-</tr>
-</tbody></table>
-<h2 id='get-completed-stop-order'>Get completed stop order</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/order/stop/finished"</span>
-</code></pre></div><h3 id='http-query-20'>HTTP query</h3>
-<ul>
-<li>GET <code>/open/api/v2/order/stop/finished</code></li>
-</ul>
-<h3 id='request-parameters-28'>Request parameters</h3>
-<table><thead>
-<tr>
-<th style="text-align: center">Field name</th>
-<th style="text-align: center">Data Type</th>
-<th style="text-align: center">Required</th>
-<th style="text-align: center">Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: center">market</td>
-<td style="text-align: center">string</td>
-<td style="text-align: center">Yes</td>
-<td style="text-align: center">Market name</td>
-</tr>
-<tr>
-<td style="text-align: center">page</td>
-<td style="text-align: center">integer</td>
-<td style="text-align: center">Yes</td>
-<td style="text-align: center">Page</td>
-</tr>
-<tr>
-<td style="text-align: center">page_size</td>
-<td style="text-align: center">integer</td>
-<td style="text-align: center">Yes</td>
-<td style="text-align: center">Page size</td>
-</tr>
-</tbody></table>
-
-<blockquote>
-<p>Responds:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"records"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"contract_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1693479864228767250"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"position_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"market"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTCUSDT"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"contract_order_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"trigger_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"38000"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"order_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"order_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1693479864</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"update_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1693479966</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"cut_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"position_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"leverage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"entrust_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gxf0Qpu1WE"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"page_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='response-content-20'>Response Content</h3>
@@ -4520,12 +4407,198 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 <td style="text-align: center"></td>
 </tr>
 </tbody></table>
-<h2 id='adjust-market-opening-leverage-position-mode'>Adjust market opening leverage/position mode</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/setting/leverage"</span>
+<h2 id='get-completed-stop-order'>Get completed stop order</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/order/stop/finished"</span>
 </code></pre></div><h3 id='http-query-21'>HTTP query</h3>
+<ul>
+<li>GET <code>/open/api/v2/order/stop/finished</code></li>
+</ul>
+<h3 id='request-parameters-29'>Request parameters</h3>
+<table><thead>
+<tr>
+<th style="text-align: center">Field name</th>
+<th style="text-align: center">Data Type</th>
+<th style="text-align: center">Required</th>
+<th style="text-align: center">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">market</td>
+<td style="text-align: center">string</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">Market name</td>
+</tr>
+<tr>
+<td style="text-align: center">page</td>
+<td style="text-align: center">integer</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">Page</td>
+</tr>
+<tr>
+<td style="text-align: center">page_size</td>
+<td style="text-align: center">integer</td>
+<td style="text-align: center">Yes</td>
+<td style="text-align: center">Page size</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Responds:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"records"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"contract_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1693479864228767250"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"position_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"market"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTCUSDT"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"contract_order_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"trigger_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"38000"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"order_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"order_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1693479864</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"update_time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1693479966</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"cut_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"position_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"leverage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"entrust_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gxf0Qpu1WE"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"page_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='response-content-21'>Response Content</h3>
+<table><thead>
+<tr>
+<th style="text-align: center">Field name</th>
+<th style="text-align: center">Data Type</th>
+<th style="text-align: center">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">records</td>
+<td style="text-align: center">array</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0</td>
+<td style="text-align: center">object</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0.contract_order_id</td>
+<td style="text-align: center">string</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0.order_id</td>
+<td style="text-align: center">integer</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0.position_id</td>
+<td style="text-align: center">integer</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0.market</td>
+<td style="text-align: center">string</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0.contract_order_type</td>
+<td style="text-align: center">integer</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0.trigger_type</td>
+<td style="text-align: center">integer</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0.trigger_price</td>
+<td style="text-align: center">string</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0.order_price</td>
+<td style="text-align: center">string</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0.size</td>
+<td style="text-align: center">string</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0.order_time</td>
+<td style="text-align: center">integer</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0.update_time</td>
+<td style="text-align: center">integer</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0.cut_price</td>
+<td style="text-align: center">string</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0.status</td>
+<td style="text-align: center">integer</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0.side</td>
+<td style="text-align: center">integer</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0.position_type</td>
+<td style="text-align: center">integer</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0.leverage</td>
+<td style="text-align: center">string</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">records.0.entrust_id</td>
+<td style="text-align: center">string</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">page</td>
+<td style="text-align: center">integer</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">page_size</td>
+<td style="text-align: center">integer</td>
+<td style="text-align: center"></td>
+</tr>
+<tr>
+<td style="text-align: center">count</td>
+<td style="text-align: center">integer</td>
+<td style="text-align: center"></td>
+</tr>
+</tbody></table>
+<h2 id='adjust-market-opening-leverage-position-mode'>Adjust market opening leverage/position mode</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/setting/leverage"</span>
+</code></pre></div><h3 id='http-query-22'>HTTP query</h3>
 <ul>
 <li>POST <code>/open/api/v2/setting/leverage</code></li>
 </ul>
-<h3 id='request-parameters-29'>Request parameters</h3>
+<h3 id='request-parameters-30'>Request parameters</h3>
 <p><strong>Headers</strong></p>
 
 <table><thead>
@@ -4584,7 +4657,7 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
   </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='response-content-21'>Response Content</h3>
+</span></code></pre></div><h3 id='response-content-22'>Response Content</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -4599,11 +4672,11 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 </tr>
 </tbody></table>
 <h2 id='query-the-market-opening-leverage-position-mode'>Query the market opening leverage/position mode</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/setting/leverage"</span>
-</code></pre></div><h3 id='http-query-22'>HTTP query</h3>
+</code></pre></div><h3 id='http-query-23'>HTTP query</h3>
 <ul>
 <li>GET <code>/open/api/v2/setting/leverage</code></li>
 </ul>
-<h3 id='request-parameters-30'>Request parameters</h3>
+<h3 id='request-parameters-31'>Request parameters</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -4631,7 +4704,7 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
     </span><span class="nl">"position_type"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='response-content-22'>Response Content</h3>
+</span></code></pre></div><h3 id='response-content-23'>Response Content</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -4651,11 +4724,11 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 </tr>
 </tbody></table>
 <h2 id='query-assets'>Query Assets</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/asset/query"</span>
-</code></pre></div><h3 id='http-query-23'>HTTP query</h3>
+</code></pre></div><h3 id='http-query-24'>HTTP query</h3>
 <ul>
 <li>GET <code>/open/api/v2/asset/query</code></li>
 </ul>
-<h3 id='request-parameters-31'>Request parameters</h3>
+<h3 id='request-parameters-32'>Request parameters</h3>
 <p>None</p>
 
 <blockquote>
@@ -4676,7 +4749,7 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
     </span><span class="p">},</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='response-content-23'>Response Content</h3>
+</span></code></pre></div><h3 id='response-content-24'>Response Content</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -4726,11 +4799,11 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 </tr>
 </tbody></table>
 <h2 id='query-asset-bill'>Query Asset Bill</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/asset/history"</span>
-</code></pre></div><h3 id='http-query-24'>HTTP query</h3>
+</code></pre></div><h3 id='http-query-25'>HTTP query</h3>
 <ul>
 <li>GET <code>/open/api/v2/asset/history</code></li>
 </ul>
-<h3 id='request-parameters-32'>Request parameters</h3>
+<h3 id='request-parameters-33'>Request parameters</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -4800,7 +4873,7 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
     </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">406</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='response-content-24'>Response Content</h3>
+</span></code></pre></div><h3 id='response-content-25'>Response Content</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -4855,11 +4928,11 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 </tr>
 </tbody></table>
 <h2 id='user-positions-2'>User Positions</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/position/pending"</span>
-</code></pre></div><h3 id='http-query-25'>HTTP query</h3>
+</code></pre></div><h3 id='http-query-26'>HTTP query</h3>
 <ul>
 <li>GET <code>/open/api/v2/position/pending</code></li>
 </ul>
-<h3 id='request-parameters-33'>Request parameters</h3>
+<h3 id='request-parameters-34'>Request parameters</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -4908,7 +4981,7 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='response-content-25'>Response Content</h3>
+</span></code></pre></div><h3 id='response-content-26'>Response Content</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -5033,11 +5106,11 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 </tr>
 </tbody></table>
 <h2 id='get-adjustable-margin'>Get adjustable margin</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/position/margin"</span>
-</code></pre></div><h3 id='http-query-26'>HTTP query</h3>
+</code></pre></div><h3 id='http-query-27'>HTTP query</h3>
 <ul>
 <li>GET <code>/open/api/v2/position/margin</code></li>
 </ul>
-<h3 id='request-parameters-34'>Request parameters</h3>
+<h3 id='request-parameters-35'>Request parameters</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -5074,7 +5147,7 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
     </span><span class="nl">"max_removable_margin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"64.7714395551"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='response-content-26'>Response Content</h3>
+</span></code></pre></div><h3 id='response-content-27'>Response Content</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -5109,11 +5182,11 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 </tr>
 </tbody></table>
 <h2 id='limit-close'>Limit Close</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/position/close/limit"</span>
-</code></pre></div><h3 id='http-query-27'>HTTP query</h3>
+</code></pre></div><h3 id='http-query-28'>HTTP query</h3>
 <ul>
 <li>POST <code>/open/api/v2/position/close/limit</code></li>
 </ul>
-<h3 id='request-parameters-35'>Request parameters</h3>
+<h3 id='request-parameters-36'>Request parameters</h3>
 <p><strong>Headers</strong></p>
 
 <table><thead>
@@ -5184,7 +5257,7 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
   </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="mi">325235235</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='response-content-27'>Response Content</h3>
+</span></code></pre></div><h3 id='response-content-28'>Response Content</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -5199,11 +5272,11 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 </tr>
 </tbody></table>
 <h2 id='market-close'>Market Close</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/position/close/market"</span>
-</code></pre></div><h3 id='http-query-28'>HTTP query</h3>
+</code></pre></div><h3 id='http-query-29'>HTTP query</h3>
 <ul>
 <li>POST <code>/open/api/v2/position/close/market</code></li>
 </ul>
-<h3 id='request-parameters-36'>Request parameters</h3>
+<h3 id='request-parameters-37'>Request parameters</h3>
 <p><strong>Headers</strong></p>
 
 <table><thead>
@@ -5262,7 +5335,7 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
   </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="mi">235235325</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='response-content-28'>Response Content</h3>
+</span></code></pre></div><h3 id='response-content-29'>Response Content</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
@@ -5277,11 +5350,11 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
 </tr>
 </tbody></table>
 <h2 id='position-take-profit-and-stop-loss-setting-modification'>Position Take Profit And Stop Loss Setting/Modification</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.bitda.com/open/api/v2/position/close/stop"</span>
-</code></pre></div><h3 id='http-query-29'>HTTP query</h3>
+</code></pre></div><h3 id='http-query-30'>HTTP query</h3>
 <ul>
 <li>POST <code>/open/api/v2/position/close/stop</code></li>
 </ul>
-<h3 id='request-parameters-37'>Request parameters</h3>
+<h3 id='request-parameters-38'>Request parameters</h3>
 <p><strong>Headers</strong></p>
 
 <table><thead>
@@ -5358,7 +5431,7 @@ if No information received. {&quot;op&quot;:&quot;sub&quot;, &quot;topic&quot;:&
   </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='response-content-29'>Response Content</h3>
+</span></code></pre></div><h3 id='response-content-30'>Response Content</h3>
 <table><thead>
 <tr>
 <th style="text-align: center">Field name</th>
