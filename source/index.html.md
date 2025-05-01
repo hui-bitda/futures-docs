@@ -36,31 +36,31 @@ search: False
 
 可以访问的接口如下：
 
-| 接口                                                                                             | 简介                                            | 市场 |
-| ------------------------------------------------------------------------------------------------ | ----------------------------------------------- | ---- |
-| [POST /open/api/v2/position/margin](#adjust-position-margin)                                     | 调整持仓保证金                                  | 合约 |
-| [GET /open/api/v2/order/deals](#get-user-transaction)                                            | 获取成交记录                                    | 合约 |
-| [GET /open/api/v2/order/finished](#get-completed-orders)                                         | 获取历史委托                                    | 合约 |
-| [POST /open/api/v2/order/market](#market-order)                                                  | 市价下单                                        | 合约 |
-| [POST /open/api/v2/order/cancel/all](#cancel-all-orders-in-a-single-market)                      | 取消所有委托                                    | 合约 |
-| [GET /open/api/v2/order/detail](#get-order-details)                                              | 获取委托详情                                    | 合约 |
-| [POST /open/api/v2/order/cancel](#cancel-order)                                                  | 取消委托                                        | 合约 |
-| [POST /open/api/v2/order/limit](#submit-limit-order)                                             | 限价下单                                        | 合约 |
-| [GET /open/api/v2/order/pending](#get-the-entrusted-order)                                       | 获取当前委托                                    | 合约 |
-| [POST /open/api/v2/order/stop](#submit-stop-order)                                               | 条件单下单                                      | 合约 |
-| [POST /open/api/v2/order/stop/cancel](#cancel-stop-order)                                        | 取消条件单                                      | 合约 |
-| [POST /open/api/v2/order/stop/cancel/all](#cancel-all-stop-orders-for-a-single-market)           | 取消所有条件单                                  | 合约 |
-| [GET /open/api/v2/order/stop/pending](#get-the-stop-order-in-the-commission)                     | 获取当前条件单                                  | 合约 |
-| [GET /open/api/v2/order/stop/finished](#get-completed-stop-order)                                | 获取历史条件单                                  | 合约 |
-| [POST /open/api/v2/setting/leverage](#adjust-market-opening-leverage-position-mode)              | Adjust market opening leverage/position mode    | 合约 |
-| [GET /open/api/v2/setting/leverage](#query-the-market-opening-leverage-position-mode)            | Query the market opening leverage/position mode | 合约 |
-| [GET /open/api/v2/asset/query](#query-assets)                                                    | 获取资产详情                                    | 合约 |
-| [GET /open/api/v2/asset/history](#query-asset-bill)                                              | 获取资产历史                                    | 合约 |
-| [GET /open/api/v2/position/pending](#user-positions)                                             | 获取当前持仓                                    | 合约 |
-| [GET /open/api/v2/position/margin](#get-adjustable-margin)                                       | 获取持仓可调整保证金                            | 合约 |
-| [POST /open/api/v2/position/close/limit](#limit-close)                                           | 限价平仓                                        | 合约 |
-| [POST /open/api/v2/position/close/market](#market-close)                                         | 市价平仓                                        | 合约 |
-| [POST /open/api/v2/position/close/stop](#position-take-profit-and-stop-loss-settingmodification) | 持仓止盈止损                                    | 合约 |
+| 接口                                                                                             | 简介                   | 市场 |
+| ------------------------------------------------------------------------------------------------ | ---------------------- | ---- |
+| [POST /open/api/v2/position/margin](#adjust-position-margin)                                     | 调整持仓保证金         | 合约 |
+| [GET /open/api/v2/order/deals](#get-user-transaction)                                            | 获取成交记录           | 合约 |
+| [GET /open/api/v2/order/finished](#get-completed-orders)                                         | 获取历史委托           | 合约 |
+| [POST /open/api/v2/order/market](#market-order)                                                  | 市价下单               | 合约 |
+| [POST /open/api/v2/order/cancel/all](#cancel-all-orders-in-a-single-market)                      | 取消所有委托           | 合约 |
+| [GET /open/api/v2/order/detail](#get-order-details)                                              | 获取委托详情           | 合约 |
+| [POST /open/api/v2/order/cancel](#cancel-order)                                                  | 取消委托               | 合约 |
+| [POST /open/api/v2/order/limit](#submit-limit-order)                                             | 限价下单               | 合约 |
+| [GET /open/api/v2/order/pending](#get-the-entrusted-order)                                       | 获取当前委托           | 合约 |
+| [POST /open/api/v2/order/stop](#submit-stop-order)                                               | 条件单下单             | 合约 |
+| [POST /open/api/v2/order/stop/cancel](#cancel-stop-order)                                        | 取消条件单             | 合约 |
+| [POST /open/api/v2/order/stop/cancel/all](#cancel-all-stop-orders-for-a-single-market)           | 取消所有条件单         | 合约 |
+| [GET /open/api/v2/order/stop/pending](#get-the-stop-order-in-the-commission)                     | 获取当前条件单         | 合约 |
+| [GET /open/api/v2/order/stop/finished](#get-completed-stop-order)                                | 获取历史条件单         | 合约 |
+| [POST /open/api/v2/setting/leverage](#adjust-market-opening-leverage-position-mode)              | 调整持仓杠杆和持仓模式 | 合约 |
+| [GET /open/api/v2/setting/leverage](#query-the-market-opening-leverage-position-mode)            | 查询持仓杠杆和持仓模式 | 合约 |
+| [GET /open/api/v2/asset/query](#query-assets)                                                    | 获取资产详情           | 合约 |
+| [GET /open/api/v2/asset/history](#query-asset-bill)                                              | 获取资产历史           | 合约 |
+| [GET /open/api/v2/position/pending](#user-positions)                                             | 获取当前持仓           | 合约 |
+| [GET /open/api/v2/position/margin](#get-adjustable-margin)                                       | 获取持仓可调整保证金   | 合约 |
+| [POST /open/api/v2/position/close/limit](#limit-close)                                           | 限价平仓               | 合约 |
+| [POST /open/api/v2/position/close/market](#market-close)                                         | 市价平仓               | 合约 |
+| [POST /open/api/v2/position/close/stop](#position-take-profit-and-stop-loss-settingmodification) | 持仓止盈止损           | 合约 |
 
 # 接入说明
 
@@ -2021,7 +2021,7 @@ curl "https://api.bitda.com/open/api/v2/order/stop/finished"
 |           page_size           | integer  |       |
 |             count             | integer  |       |
 
-## Adjust market opening leverage/position mode
+## 调整持仓杠杆和持仓模式
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/setting/leverage"
@@ -2054,7 +2054,7 @@ curl "https://api.bitda.com/open/api/v2/setting/leverage"
 | :----: | :------: | :---: |
 |  data  |  object  |       |
 
-## Query the market opening leverage/position mode
+## 查询持仓杠杆和持仓模式
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/setting/leverage"
