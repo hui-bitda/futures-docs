@@ -86,7 +86,7 @@ search: False
 
 5. Content-Type: application/x-www-form-urlencoded
 
-6. 现货接口，post接口请求请将参数放在请求体里面，get接口请求携带在url链接中。
+6. 合约接口，post接口请求请将参数放在请求体里面，get接口请求携带在url链接中。
    
 # WebSocket说明
 
