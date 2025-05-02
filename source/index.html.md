@@ -66,11 +66,11 @@ search: False
 
 ## Restful Host:
 
-    https://ws.bitda.com
+    https://api.bitda.com
 
 ## Websocket Host:
 
-    futures
+    合约交易 
     wss://ws.bitda.com/wsf
 
 ## 鉴权说明
