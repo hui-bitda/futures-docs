@@ -44,6 +44,7 @@ search: False
 | [POST /open/api/v2/order/market](#market-order)                                                  | 市价下单               | 合约 |
 | [POST /open/api/v2/order/cancel/all](#cancel-all-orders-in-a-single-market)                      | 取消所有委托           | 合约 |
 | [GET /open/api/v2/order/detail](#get-order-details)                                              | 获取委托详情           | 合约 |
+| [POST /open/api/v2/order/cancel/batch](#batch-cancel-orders-in-a-single-market)                  | 批量取消委托           | 合约 |
 | [POST /open/api/v2/order/cancel](#cancel-order)                                                  | 取消委托               | 合约 |
 | [POST /open/api/v2/order/limit](#submit-limit-order)                                             | 限价下单               | 合约 |
 | [GET /open/api/v2/order/pending](#get-the-entrusted-order)                                       | 获取当前委托           | 合约 |
@@ -694,7 +695,8 @@ search: False
 
 # Open v2公共接口
 
-## 获取市场K线
+<h2 id="get-market-k-line">获取市场K线</h2>
+
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/market/kline"
@@ -747,7 +749,7 @@ curl "https://api.bitda.com/open/api/v2/market/kline"
 | close  |  string  |       |
 | volume |  string  |       |
 
-## 获取市场列表
+<h2 id="get-market-list">获取市场列表</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/market/list"
@@ -867,7 +869,7 @@ None
 | limits.0.2  |  string  |            |
 |    sort     | integer  |            |
 
-## 获取市场成交
+<h2 id="get-market-transactions">获取市场成交</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/market/deals"
@@ -911,7 +913,7 @@ curl "https://api.bitda.com/open/api/v2/market/deals"
 |  type  |  string  |       |
 |  time  | integer  |       |
 
-## 获取市场深度
+<h2 id="get-market-depth">获取市场深度</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/market/depth"
@@ -975,7 +977,7 @@ curl "https://api.bitda.com/open/api/v2/market/depth"
 |  array.0.0  |  string  |             价格              |
 |  array.0.1  |  string  |             数量              |
 
-## 获取市场状态
+<h2 id="get-market-status">获取市场状态</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/market/state"
@@ -1047,7 +1049,7 @@ curl "https://api.bitda.com/open/api/v2/market/state"
 |      sell_total      |  string  |       |
 |      buy_total       |  string  |       |
 
-## 获取所有市场状态
+<h2 id="get-all-market-status">获取所有市场状态</h2>
 
 ```shell
 cuel "https://api.bitda.com/open/api/v2/market/state/all"
@@ -1120,7 +1122,7 @@ cuel "https://api.bitda.com/open/api/v2/market/state/all"
 
 # Open v2鉴权接口
 
-## 调整持仓保证金
+<h2 id="adjust-position-margin">调整持仓保证金</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/position/margin"
@@ -1232,7 +1234,7 @@ curl "https://api.bitda.com/open/api/v2/position/margin"
 |       adl_sort        | integer  |       |
 |         total         | integer  |       |
 
-## 获取成交记录
+<h2 id="get-user-transaction">获取成交记录</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/order/deals"
@@ -1312,7 +1314,7 @@ curl "https://api.bitda.com/open/api/v2/order/deals"
 |        page_size        | integer  |       |
 |          count          | integer  |       |
 
-## 获取历史委托
+<h2 id="get-completed-orders">获取历史委托</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/order/finished"
@@ -1402,7 +1404,7 @@ curl "https://api.bitda.com/open/api/v2/order/finished"
 |            count            | integer  |       |
 
 
-## 市价下单
+<h2 id="market-order">市价下单</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/order/market"
@@ -1442,7 +1444,7 @@ curl "https://api.bitda.com/open/api/v2/order/market"
 | :----: | :------: | :---: |
 |  data  | integer  |       |
 
-## 取消所有委托
+<h2 id="cancel-all-orders-in-a-single-market">取消所有委托</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/order/cancel/all"
@@ -1477,7 +1479,7 @@ curl "https://api.bitda.com/open/api/v2/order/cancel/all"
 | :----: | :------: | :---: |
 |  data  |  object  |       |
 
-## 获取委托详情
+<h2 id="get-order-details">获取委托详情</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/order/detail"
@@ -1551,7 +1553,7 @@ curl "https://api.bitda.com/open/api/v2/order/detail"
 |  stop_loss_price  |  string  |          |
 | take_profit_price |  string  |          |
 
-## 批量取消委托
+<h2 id="batch-cancel-orders-in-a-single-market">批量取消委托</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/order/cancel/batch"
@@ -1591,7 +1593,7 @@ curl "https://api.bitda.com/open/api/v2/order/cancel/batch"
 | :----: | :------: | :---: |
 |  data  | integer  |       |
 
-## 取消委托
+<h2 id="cancel-order">取消委托</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/order/cancel"
@@ -1626,7 +1628,7 @@ curl "https://api.bitda.com/open/api/v2/order/cancel"
 | :----: | :------: | :---: |
 |  data  | integer  |       |
 
-## 限价下单
+<h2 id="submit-limit-order">限价下单</h2>
 
 ```shell
 "https://api.bitda.com/open/api/v2/order/limit"
@@ -1667,7 +1669,7 @@ curl "https://api.bitda.com/open/api/v2/order/cancel"
 | :----: | :------: | :---: |
 |  data  | integer  |       |
 
-## 获取当前委托
+<h2 id="get-the-entrusted-order">获取当前委托</h2>
 
 ```shell
 "https://api.bitda.com/open/api/v2/order/pending"
@@ -1755,10 +1757,10 @@ curl "https://api.bitda.com/open/api/v2/order/cancel"
 |          page_size          | integer  |       |
 |            count            | integer  |       |
 
-## 条件单下单
+<h2 id="submit-stop-order">条件单下单</h2>
 
 ```shell
-"https://api.bitda.com/open/api/v2/order/stop"
+curl "https://api.bitda.com/open/api/v2/order/stop"
 
 ```
 
@@ -1792,7 +1794,7 @@ curl "https://api.bitda.com/open/api/v2/order/cancel"
 | :----: | :------: | :---: |
 |  data  |  object  | null  |
 
-## 取消条件单
+<h2 id="cancel-stop-order">取消条件单</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/order/stop/cancel"
@@ -1828,7 +1830,7 @@ curl "https://api.bitda.com/open/api/v2/order/stop/cancel"
 
 <aside class="Notice">限速1r/s</aside>
 
-## 取消所有条件单
+<h2 id="cancel-all-stop-orders-for-a-single-market">取消所有条件单</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/order/stop/cancel/all"
@@ -1861,7 +1863,7 @@ curl "https://api.bitda.com/open/api/v2/order/stop/cancel/all"
 |  data  |  object  |       |
 
 
-## 获取当前条件单
+<h2 id="get-the-stop-order-in-the-commission">获取当前条件单</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/order/stop/pending"
@@ -1942,7 +1944,7 @@ curl "https://api.bitda.com/open/api/v2/order/stop/pending"
 |             count             | integer  |       |
 
 
-## 获取历史条件单
+<h2 id="get-completed-stop-order">获取历史条件单</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/order/stop/finished"
@@ -2021,7 +2023,7 @@ curl "https://api.bitda.com/open/api/v2/order/stop/finished"
 |           page_size           | integer  |       |
 |             count             | integer  |       |
 
-## 调整持仓杠杆和持仓模式
+<h2 id="adjust-market-opening-leverage-position-mode">调整持仓杠杆和持仓模式</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/setting/leverage"
@@ -2054,7 +2056,7 @@ curl "https://api.bitda.com/open/api/v2/setting/leverage"
 | :----: | :------: | :---: |
 |  data  |  object  |       |
 
-## 查询持仓杠杆和持仓模式
+<h2 id="query-the-market-opening-leverage-position-mode">查询持仓杠杆和持仓模式</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/setting/leverage"
@@ -2090,7 +2092,7 @@ curl "https://api.bitda.com/open/api/v2/setting/leverage"
 | position_type | integer  |       |
 
 
-## 获取资产详情
+<h2 id="query-assets">获取资产详情</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/asset/query"
@@ -2135,7 +2137,7 @@ curl "https://api.bitda.com/open/api/v2/asset/query"
 |   data.market_name.transfer    |  string  |       |
 |     data.market_name.bonus     |  string  |       |
 
-## 获取资产历史
+<h2 id="query-asset-bill">获取资产历史</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/asset/history"
@@ -2195,7 +2197,7 @@ curl "https://api.bitda.com/open/api/v2/asset/history"
 |  records.0.change  |  string  |       |
 | records.0.balance  |  string  |       |
 
-## 获取当前持仓
+<h2 id="user-positions">获取当前持仓</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/position/pending"
@@ -2272,7 +2274,7 @@ curl "https://api.bitda.com/open/api/v2/position/pending"
 |    data.0.stop_loss_price    |  string  |       |
 |   data.0.take_profit_price   |  string  |       |
 
-## 获取持仓可调整保证金
+<h2 id="get-adjustable-margin">获取持仓可调整保证金</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/position/margin"
@@ -2314,7 +2316,7 @@ curl "https://api.bitda.com/open/api/v2/position/margin"
 |    margin_amount     |  string  |       |
 | max_removable_margin |  string  |       |
 
-## 限价平仓
+<h2 id="limit-close">限价平仓</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/position/close/limit"
@@ -2349,7 +2351,7 @@ curl "https://api.bitda.com/open/api/v2/position/close/limit"
 | :----: | :------: | :---: |
 |  data  | integer  |       |
 
-## 市价平仓
+<h2 id="market-close">市价平仓</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/position/close/market"
@@ -2382,7 +2384,7 @@ curl "https://api.bitda.com/open/api/v2/position/close/market"
 | :----: | :------: | :---: |
 |  data  | integer  |       |
 
-## 持仓止盈止损
+<h2 id="position-take-profit-and-stop-loss-settingmodification">持仓止盈止损</h2>
 
 ```shell
 curl "https://api.bitda.com/open/api/v2/position/close/stop"
