@@ -740,14 +740,14 @@ curl "https://api.bitda.com/open/api/v2/market/kline"
 
 ### 返回字段
 
-| 参数名 | 参数类型 | 描述  |
-| :----: | :------: | :---: |
-|  time  | integer  |       |
-|  open  |  string  |       |
-|  high  |  string  |       |
-|  low   |  string  |       |
-| close  |  string  |       |
-| volume |  string  |       |
+| 参数名 | 参数类型 |  描述  |
+| :----: | :------: | :----: |
+|  time  | integer  |  时间  |
+|  open  |  string  | 开盘价 |
+|  high  |  string  | 最高价 |
+|  low   |  string  | 最低价 |
+| close  |  string  | 收盘价 |
+| volume |  string  | 成交量 |
 
 <h2 id="get-market-list">获取市场列表</h2>
 
@@ -840,7 +840,9 @@ None
           "0.005"
         ]
       ],
-      "sort": 1
+      "sort": 1,
+      "maker_fee": "0.0005",
+      "taker_fee": "0.0006"
     }
   ]
 }
@@ -848,26 +850,28 @@ None
 
 ### 返回字段
 
-|   参数名    | 参数类型 |    描述    |
-| :---------: | :------: | :--------: |
-|    type     | integer  |            |
-|  leverages  |  array   |            |
-|    name     |  string  | 市场交易对 |
-|    stock    |  string  |            |
-|    money    |  string  |            |
-|  fee_prec   | integer  |            |
-|  tick_size  |  string  |            |
-| stock_prec  | integer  |            |
-| money_prec  | integer  |            |
-| amount_prec | integer  |            |
-| amount_min  |  string  |            |
-|  available  |   bool   |            |
-|   limits    |  array   |            |
-|  limits.0   |  array   |            |
-| limits.0.0  |  string  |            |
-| limits.0.1  |  string  |            |
-| limits.0.2  |  string  |            |
-|    sort     | integer  |            |
+|   参数名    | 参数类型 |                   描述                   |
+| :---------: | :------: | :--------------------------------------: |
+|    type     | integer  |         类型，正向合约/反向合约          |
+|  leverages  |  array   |                 杠杆列表                 |
+|    name     |  string  |                市场交易对                |
+|    stock    |  string  |             标的资产，如BTC              |
+|    money    |  string  |             计价资产，如USDT             |
+|  fee_prec   | integer  |                手续费精度                |
+|  tick_size  |  string  |               价格最小变动               |
+| stock_prec  | integer  |               标的资产精度               |
+| money_prec  | integer  |               计价资产精度               |
+| amount_prec | integer  |                 数量精度                 |
+| amount_min  |  string  |               最小下单数量               |
+|  available  |   bool   |                 是否可用                 |
+|   limits    |  array   | 持仓限制, [最大持仓数量，杠杆，保证金率] |
+|  limits.0   |  array   |                 持仓限制                 |
+| limits.0.0  |  string  |               最大持仓数量               |
+| limits.0.1  |  string  |                   杠杆                   |
+| limits.0.2  |  string  |                 保证金率                 |
+|    sort     | integer  |                   排序                   |
+|  maker_fee  |  string  |                挂单手续费                |
+|  taker_fee  |  string  |                吃单手续费                |
 
 <h2 id="get-market-transactions">获取市场成交</h2>
 
@@ -895,9 +899,9 @@ curl "https://api.bitda.com/open/api/v2/market/deals"
     {
       "id": 27699216,
       "price": "1573.89",
-      "amount": "0.922",
+      "volume": "0.922",
       "type": "buy",
-      "time": 1697619536.256684
+      "time": 1697619536123
     }
   ]
 }
@@ -905,13 +909,13 @@ curl "https://api.bitda.com/open/api/v2/market/deals"
 
 ### 返回字段
 
-| 参数名 | 参数类型 | 描述  |
-| :----: | :------: | :---: |
-|   id   | integer  |       |
-| price  |  string  |       |
-| amount |  string  |       |
-|  type  |  string  |       |
-|  time  | integer  |       |
+| 参数名 | 参数类型 |      描述      |
+| :----: | :------: | :------------: |
+|   id   | integer  |     成交ID     |
+| price  |  string  |      价格      |
+| volume |  string  |      数量      |
+|  type  |  string  | 类型，buy/sell |
+|  time  | integer  |   时间，毫秒   |
 
 <h2 id="get-market-depth">获取市场深度</h2>
 
@@ -945,16 +949,16 @@ curl "https://api.bitda.com/open/api/v2/market/depth"
     "time": 1697620709569,
     "last": "1573.89",
     "asks": [
-      [
-        "1621.22",
-        "30.613"
-      ]
+      {
+        "price": "1621.22",
+        "volume": "30.613"
+      }
     ],
     "bids": [
-      [
-        "1573.84",
-        "0.819"
-      ]
+      {
+        "price": "1573.84",
+        "volume": "0.819"
+      }
     ]
   }
 }
@@ -962,20 +966,20 @@ curl "https://api.bitda.com/open/api/v2/market/depth"
 
 ### 返回字段
 
-|   参数名    | 参数类型 |             描述              |
-| :---------: | :------: | :---------------------------: |
-| index_price |  string  |                               |
-| sign_price  |  string  |                               |
-|    time     | integer  |             毫秒              |
-|    last     |  string  |           最新价格            |
-|    asks     |  array   |                               |
-|   asks.0    |  array   | [{price 价格, quantity 数量}] |
-|  asks.0.0   |  string  |             价格              |
-|  asks.0.1   |  string  |             数量              |
-|    bids     |  array   |                               |
-|   array.0   |  array   | [{price 价格, quantity 数量}] |
-|  array.0.0  |  string  |             价格              |
-|  array.0.1  |  string  |             数量              |
+|     参数名     | 参数类型 |             描述              |
+| :------------: | :------: | :---------------------------: |
+|  index_price   |  string  |           指数价格            |
+|   sign_price   |  string  |           标记价格            |
+|      time      | integer  |             毫秒              |
+|      last      |  string  |         最新成交价格          |
+|      asks      |  array   |             卖盘              |
+|     asks.0     |  object  | [{price 价格, quantity 数量}] |
+|  asks.0.price  |  string  |             价格              |
+| asks.0.volume  |  string  |             数量              |
+|      bids      |  array   |             买盘              |
+|    array.0     |  object  | [{price 价格, quantity 数量}] |
+| array.0.price  |  string  |             价格              |
+| array.0.volume |  string  |             数量              |
 
 <h2 id="get-market-status">获取市场状态</h2>
 
@@ -1012,7 +1016,7 @@ curl "https://api.bitda.com/open/api/v2/market/state"
     "period": 86400,
     "volume": "3.02",
     "funding_time": 400,
-    "position_amount": "2.100",
+    "position_volume": "2.100",
     "funding_rate_last": "0.00375",
     "funding_rate_next": "0.00293873",
     "funding_rate_predict": "-0.00088999",
@@ -1027,27 +1031,27 @@ curl "https://api.bitda.com/open/api/v2/market/state"
 
 ### 返回字段
 
-|        参数名        | 参数类型 | 描述  |
-| :------------------: | :------: | :---: |
-|        market        |  string  |       |
-|        amount        |  string  |       |
-|         high         |  string  |       |
-|         last         |  string  |       |
-|         low          |  string  |       |
-|         open         |  string  |       |
-|        change        |  string  |       |
-|        period        | integer  |       |
-|        volume        |  string  |       |
-|     funding_time     | integer  |       |
-|   position_amount    |  string  |       |
-|  funding_rate_last   |  string  |       |
-|  funding_rate_next   |  string  |       |
-| funding_rate_predict |  string  |       |
-|      insurance       |  string  |       |
-|      sign_price      |  string  |       |
-|     index_price      |  string  |       |
-|      sell_total      |  string  |       |
-|      buy_total       |  string  |       |
+|        参数名        | 参数类型 |      描述      |
+| :------------------: | :------: | :------------: |
+|        market        |  string  |      市场      |
+|        amount        |  string  | 数量，单位USDT |
+|         high         |  string  |     最高价     |
+|         last         |  string  |   最新成交价   |
+|         low          |  string  |     最低价     |
+|         open         |  string  |     开盘价     |
+|        change        |  string  |      涨跌      |
+|        period        | integer  |      周期      |
+|        volume        |  string  |     成交量     |
+|     funding_time     | integer  |  资金费率时间  |
+|   position_volume    |  string  |     持仓量     |
+|  funding_rate_last   |  string  | 上一次资金费率 |
+|  funding_rate_next   |  string  | 下一次资金费率 |
+| funding_rate_predict |  string  |  预测资金费率  |
+|      insurance       |  string  |    保险基金    |
+|      sign_price      |  string  |    标记价格    |
+|     index_price      |  string  |    指数价格    |
+|      sell_total      |  string  |    卖盘总量    |
+|      buy_total       |  string  |    买盘总量    |
 
 <h2 id="get-all-market-status">获取所有市场状态</h2>
 
@@ -1082,7 +1086,7 @@ cuel "https://api.bitda.com/open/api/v2/market/state/all"
       "period": 86400,
       "volume": "0",
       "funding_time": 400,
-      "position_amount": "0",
+      "position_volume": "0",
       "funding_rate_last": "0.00375",
       "funding_rate_next": "0.00375",
       "funding_rate_predict": "0.00375",
@@ -1098,27 +1102,28 @@ cuel "https://api.bitda.com/open/api/v2/market/state/all"
 
 ### 返回字段
 
-|               参数名               | 参数类型 |    描述    |
-| :--------------------------------: | :------: | :--------: |
-|          data.market_name          |  object  | 市场交易对 |
-|      data.market_name.market       |  string  | 市场交易对 |
-|      data.market_name.amount       |  string  |            |
-|       data.market_name.high        |  string  |            |
-|       data.market_name.last        |  string  |            |
-|        data.market_name.low        |  string  |            |
-|       data.market_name.open        |  string  |            |
-|      data.market_name.change       |  string  |            |
-|      data.market_name.period       | integer  |            |
-|      data.market_name.volume       |  string  |            |
-|   data.market_name.funding_time    | integer  |            |
-|  data.market_name.position_amount  |  string  |            |
-| data.market_name.funding_rate_last |  string  |            |
-| data.market_name.funding_rate_next |  string  |            |
-|     data.market_name.insurance     |  string  |            |
-|    data.market_name.sign_price     |  string  |            |
-|    data.market_name.index_price    |  string  |            |
-|    data.market_name.sell_total     |  string  |            |
-|     data.market_name.buy_total     |  string  |            |
+|                参数名                 | 参数类型 |      描述      |
+| :-----------------------------------: | :------: | :------------: |
+|           data.market_name            |  object  |   市场交易对   |
+|        data.market_name.market        |  string  |   市场交易对   |
+|        data.market_name.amount        |  string  | 数量，单位USDT |
+|         data.market_name.high         |  string  |     最高价     |
+|         data.market_name.last         |  string  |   最新成交价   |
+|         data.market_name.low          |  string  |     最低价     |
+|         data.market_name.open         |  string  |     开盘价     |
+|        data.market_name.change        |  string  |      涨跌      |
+|        data.market_name.period        | integer  |      周期      |
+|        data.market_name.volume        |  string  |     成交量     |
+|     data.market_name.funding_time     | integer  |  资金费率时间  |
+|   data.market_name.position_volume    |  string  |     持仓量     |
+|  data.market_name.funding_rate_last   |  string  | 上一次资金费率 |
+|  data.market_name.funding_rate_next   |  string  | 下一次资金费率 |
+| data.market_name.funding_rate_predict |  string  |  预测资金费率  |
+|      data.market_name.insurance       |  string  |    保险基金    |
+|      data.market_name.sign_price      |  string  |    标记价格    |
+|     data.market_name.index_price      |  string  |    指数价格    |
+|      data.market_name.sell_total      |  string  |    卖盘总量    |
+|      data.market_name.buy_total       |  string  |    买盘总量    |
 
 # Open v2鉴权接口
 
@@ -1150,42 +1155,27 @@ curl "https://api.bitda.com/open/api/v2/position/margin"
   "data": {
     "position_id": 4750887, 
     "profit_unreal": "9.0806004045", 
-    "finish_type": 1, 
-    "liq_time": 0, 
-    "create_time": 1697619536.255882, 
-    "update_time": 1697620824.557015, 
+    "create_time": 1697619536, 
+    "update_time": 1697620824, 
     "mainten_margin": "0.02", 
-    "user_id": 9108, 
     "market": "ETHUSDT", 
-    "adl_sort_val": "0.01254794", 
     "type": 1, 
     "liq_price": "1525.67027360000000000644", 
     "side": 2, 
-    "open_val_max": "1573.88688000000000000000", 
-    "sys": 0, 
     "margin_amount": "79.69434400000000000000", 
-    "amount": "1.000", 
+    "volume": "1.000", 
     "open_margin": "0.05063536967790213741", 
-    "deal_asset_fee": "0", 
-    "amount_max": "1.000", 
     "close_left": "1.000", 
     "open_price": "1573.88688000000000000000", 
-    "open_val": "1573.88688000000000000000", 
-    "open_margin_imply": "0", 
     "mainten_margin_amount": "31.47773760000000000000", 
     "leverage": "20", 
-    "profit_real": "-0.78694344000000000000", 
-    "profit_clearing": "-0.78694344000000000000", 
-    "liq_order_time": 0, 
-    "liq_amount": "0", 
-    "liq_profit": "0", 
-    "liq_order_price": "0", 
-    "fee_asset": "", 
-    "bkr_price": "1494.19253600000000000644", 
-    "liq_price_imply": "0", 
-    "bkr_price_imply": "0", 
     "adl_sort": 1, 
-    "total": 5
+    "roe": "0.05",
+    "margin_ratio": "0.75",
+    "stop_loss_price": "1544.000",
+    "take_profit_price": "1655.55",
+    "stop_loss_price_type": 1,
+    "take_profit_price_type": 1
   }
 }
 
@@ -1193,46 +1183,31 @@ curl "https://api.bitda.com/open/api/v2/position/margin"
 
 ### 返回字段
 
-|        参数名         | 参数类型 | 描述  |
-| :-------------------: | :------: | :---: |
-|      position_id      | integer  |       |
-|     profit_unreal     |  string  |       |
-|      finish_type      | integer  |       |
-|       liq_time        | integer  |       |
-|      create_time      |  float   |       |
-|      update_time      |  float   |       |
-|    mainten_margin     |  string  |       |
-|        user_id        | integer  |       |
-|        market         |  string  |       |
-|     adl_sort_val      |  string  |       |
-|         type          | integer  |       |
-|       liq_price       |  string  |       |
-|         side          | integer  |       |
-|     open_val_max      |  string  |       |
-|          sys          | integer  |       |
-|     margin_amount     |  string  |       |
-|        amount         |  string  |       |
-|      open_margin      |  string  |       |
-|    deal_asset_fee     |  string  |       |
-|      amount_max       |  string  |       |
-|      close_left       |  string  |       |
-|      open_price       |  string  |       |
-|       open_val        |  string  |       |
-|   open_margin_imply   |  string  |       |
-| mainten_margin_amount |  string  |       |
-|       leverage        |  string  |       |
-|      profit_real      |  string  |       |
-|    profit_clearing    |  string  |       |
-|    liq_order_time     | integer  |       |
-|      liq_amount       |  string  |       |
-|      liq_profit       |  string  |       |
-|    liq_order_price    |  string  |       |
-|       fee_asset       |  string  |       |
-|       bkr_price       |  string  |       |
-|    liq_price_imply    |  string  |       |
-|    bkr_price_imply    |  string  |       |
-|       adl_sort        | integer  |       |
-|         total         | integer  |       |
+|         参数名         | 参数类型 |      描述      |
+| :--------------------: | :------: | :------------: |
+|      position_id       | integer  |     持仓ID     |
+|      create_time       | integer  |    创建时间    |
+|      update_time       | integer  |    更新时间    |
+|         market         |  string  |      市场      |
+|          type          | integer  |      类型      |
+|          side          | integer  |      方向      |
+|         volume         |  string  |      数量      |
+|       close_left       |  string  |  剩余平仓数量  |
+|       open_price       |  string  |    开仓价格    |
+|      open_margin       |  string  |   开仓保证金   |
+|     margin_amount      |  string  |     保证金     |
+|        leverage        |  string  |      杠杆      |
+|     profit_unreal      |  string  |   未实现盈亏   |
+|       liq_price        |  string  |    强平价格    |
+|     mainten_margin     |  string  |   维持保证金   |
+| mainten_margin_amount  |  string  | 维持保证金金额 |
+|        adl_sort        | integer  |      排序      |
+|          roe           |  string  |     盈亏比     |
+|      margin_ratio      |  string  |    保证金率    |
+|    stop_loss_price     |  string  |    止损价格    |
+|   take_profit_price    |  string  |    止盈价格    |
+|  stop_loss_price_type  | integer  |  止损价格类型  |
+| take_profit_price_type | integer  |  止盈价格类型  |
 
 <h2 id="get-user-transaction">获取成交记录</h2>
 
@@ -1266,13 +1241,12 @@ curl "https://api.bitda.com/open/api/v2/order/deals"
       {
         "position_type": 1, 
         "market": "ETHUSDT", 
-        "time": 1697619536.256684, 
+        "time": 1697619536, 
         "side": 2, 
         "leverage": "20", 
-        "user_id": 9108, 
         "order_id": 1470801730, 
         "role": 2, 
-        "amount": "0.922", 
+        "volume": "0.922", 
         "price": "1573.89", 
         "deal_fee": "0.7255", 
         "deal_stock": "1451.1265", 
@@ -1282,8 +1256,7 @@ curl "https://api.bitda.com/open/api/v2/order/deals"
       }
     ], 
     "page": 1, 
-    "page_size": 10, 
-    "count": 0
+    "page_size": 10
   }
 }
 
@@ -1291,28 +1264,26 @@ curl "https://api.bitda.com/open/api/v2/order/deals"
 
 ### 返回字段
 
-|         参数名          | 参数类型 | 描述  |
-| :---------------------: | :------: | :---: |
-|         records         |  array   |       |
-|        records.0        |  object  |       |
-| records.0.position_type | integer  |       |
-|    records.0.market     |  string  |       |
-|     records.0.time      |  float   |       |
-|     records.0.side      | integer  |       |
-|   records.0.leverage    |  string  |       |
-|    records.0.user_id    | integer  |       |
-|   records.0.order_id    | integer  |       |
-|     records.0.role      | integer  |       |
-|    records.0.amount     |  string  |       |
-|     records.0.price     |  string  |       |
-|   records.0.deal_fee    |  string  |       |
-|  records.0.deal_stock   |  string  |       |
-|  records.0.filled_type  | integer  |       |
-|  records.0.trade_type   | integer  |       |
-|  records.0.deal_profit  |  string  |       |
-|          page           | integer  |       |
-|        page_size        | integer  |       |
-|          count          | integer  |       |
+|         参数名          | 参数类型 |    描述    |
+| :---------------------: | :------: | :--------: |
+|         records         |  array   |    记录    |
+|        records.0        |  object  |            |
+| records.0.position_type | integer  |  持仓类型  |
+|    records.0.market     |  string  |    市场    |
+|     records.0.time      | integer  |    时间    |
+|     records.0.side      | integer  |    方向    |
+|   records.0.leverage    |  string  |    杠杆    |
+|   records.0.order_id    | integer  |   订单ID   |
+|     records.0.role      | integer  |    角色    |
+|    records.0.volume     |  string  |    数量    |
+|     records.0.price     |  string  |    价格    |
+|   records.0.deal_fee    |  string  | 成交手续费 |
+|  records.0.deal_stock   |  string  |  成交数量  |
+|  records.0.filled_type  | integer  |  成交类型  |
+|  records.0.trade_type   | integer  |  交易类型  |
+|  records.0.deal_profit  |  string  |  成交盈亏  |
+|          page           | integer  |    页码    |
+|        page_size        | integer  |   页大小   |
 
 <h2 id="get-completed-orders">获取历史委托</h2>
 
@@ -1351,7 +1322,7 @@ curl "https://api.bitda.com/open/api/v2/order/finished"
         "type": 2, 
         "side": 2, 
         "left": "0", 
-        "amount": "1", 
+        "volume": "1", 
         "filled": "1", 
         "deal_fee": "0.7869", 
         "price": "0", 
@@ -1363,12 +1334,13 @@ curl "https://api.bitda.com/open/api/v2/order/finished"
         "create_time": 1697619536.255875, 
         "status": 3, 
         "stop_loss_price": "-", 
-        "take_profit_price": "-"
+        "take_profit_price": "-",
+        "client_oid": "112233",
+        "target": 1
       }
     ], 
     "page": 1, 
     "page_size": 10, 
-    "count": 0
   }
 }
 
@@ -1376,32 +1348,33 @@ curl "https://api.bitda.com/open/api/v2/order/finished"
 
 ### 返回字段
 
-|           参数名            | 参数类型 | 描述  |
-| :-------------------------: | :------: | :---: |
-|           records           |  array   |       |
-|          records.0          |  object  |       |
-|     records.0.order_id      | integer  |       |
-|    records.0.position_id    | integer  |       |
-|      records.0.market       |  string  |       |
-|       records.0.type        | integer  |       |
-|       records.0.side        | integer  |       |
-|       records.0.left        |  string  |       |
-|      records.0.amount       |  string  |       |
-|      records.0.filled       |  string  |       |
-|     records.0.deal_fee      |  string  |       |
-|       records.0.price       |  string  |       |
-|     records.0.avg_price     |  string  |       |
-|    records.0.deal_stock     |  string  |       |
-|   records.0.position_type   | integer  |       |
-|     records.0.leverage      |  string  |       |
-|    records.0.update_time    |  float   |       |
-|    records.0.create_time    |  float   |       |
-|      records.0.status       | integer  |       |
-|  records.0.stop_loss_price  |  string  |       |
-| records.0.take_profit_price |  string  |       |
-|            page             | integer  |       |
-|          page_size          | integer  |       |
-|            count            | integer  |       |
+|           参数名            | 参数类型 |       描述       |
+| :-------------------------: | :------: | :--------------: |
+|           records           |  array   |       记录       |
+|          records.0          |  object  |                  |
+|     records.0.order_id      | integer  |      订单ID      |
+|    records.0.position_id    | integer  |      持仓ID      |
+|      records.0.market       |  string  |       市场       |
+|       records.0.type        | integer  |       类型       |
+|       records.0.side        | integer  | 方向，1:卖，2:买 |
+|       records.0.left        |  string  |     剩余数量     |
+|      records.0.volume       |  string  |       数量       |
+|      records.0.filled       |  string  |    已成交数量    |
+|     records.0.deal_fee      |  string  |    成交手续费    |
+|       records.0.price       |  string  |       价格       |
+|     records.0.avg_price     |  string  |     平均价格     |
+|    records.0.deal_stock     |  string  |     成交数量     |
+|   records.0.position_type   | integer  |     持仓类型     |
+|     records.0.leverage      |  string  |       杠杆       |
+|    records.0.update_time    |  float   |     更新时间     |
+|    records.0.create_time    |  float   |     创建时间     |
+|      records.0.status       | integer  |       状态       |
+|  records.0.stop_loss_price  |  string  |     止损价格     |
+| records.0.take_profit_price |  string  |     止盈价格     |
+|    records.0.client_oid     |  string  |   客户端订单ID   |
+|      records.0.target       | integer  |       目标       |
+|            page             | integer  |       页码       |
+|          page_size          | integer  |      页大小      |
 
 
 <h2 id="market-order">市价下单</h2>
@@ -1434,15 +1407,17 @@ curl "https://api.bitda.com/open/api/v2/order/market"
 {
   "code": 0,
   "msg": "success",
-  "data": 1471038436
+  "data": {
+    "order_id": 112233
+  }
 }
 ```
 
 ### 返回字段
 
-| 参数名 | 参数类型 | 描述  |
-| :----: | :------: | :---: |
-|  data  | integer  |       |
+|  参数名  | 参数类型 |  描述  |
+| :------: | :------: | :----: |
+| order_id | integer  | 订单ID |
 
 <h2 id="cancel-all-orders-in-a-single-market">取消所有委托</h2>
 
@@ -1495,7 +1470,7 @@ curl "https://api.bitda.com/open/api/v2/order/detail"
 |  参数名  | 参数类型 | 是否必须 |    描述    |
 | :------: | :------: | :------: | :--------: |
 |  market  |  string  |    是    | 市场交易对 |
-| order_id | integer  |    是    |  委托单ID  |
+| order_id |  string  |    是    |  委托单ID  |
 
 > Responds:
 
@@ -1510,7 +1485,7 @@ curl "https://api.bitda.com/open/api/v2/order/detail"
     "type": 2, 
     "side": 1, 
     "left": "0", 
-    "amount": "1", 
+    "volume": "1", 
     "filled": "1", 
     "deal_fee": "0.7869", 
     "price": "0", 
@@ -1523,7 +1498,8 @@ curl "https://api.bitda.com/open/api/v2/order/detail"
     "status": 3, 
     "stop_loss_price": "-", 
     "take_profit_price": "-",
-    "client_oid":"36341ddd362363263626"
+    "client_oid":"36341ddd362363263626",
+    "target": 1
   }
 }
 
@@ -1531,27 +1507,29 @@ curl "https://api.bitda.com/open/api/v2/order/detail"
 
 ### 返回字段
 
-|      参数名       | 参数类型 |   描述   |
-| :---------------: | :------: | :------: |
-|     order_id      | integer  | 委托单ID |
-|    position_id    | integer  |          |
-|      market       |  string  |          |
-|       type        | integer  |          |
-|       side        | integer  |          |
-|       left        |  string  |          |
-|      amount       |  string  |          |
-|      filled       |  string  |          |
-|     deal_fee      |  string  |          |
-|       price       |  string  |          |
-|     avg_price     |  string  |          |
-|    deal_stock     |  string  |          |
-|   position_type   | integer  |          |
-|     leverage      |  string  |          |
-|    update_time    |  float   |          |
-|    create_time    |  float   |          |
-|      status       | integer  |          |
-|  stop_loss_price  |  string  |          |
-| take_profit_price |  string  |          |
+|      参数名       | 参数类型 |       描述       |
+| :---------------: | :------: | :--------------: |
+|     order_id      | integer  |      订单ID      |
+|    position_id    | integer  |      持仓ID      |
+|      market       |  string  |       市场       |
+|       type        | integer  |       类型       |
+|       side        | integer  | 方向，1:卖，2:买 |
+|       left        |  string  |     剩余数量     |
+|      volume       |  string  |       数量       |
+|      filled       |  string  |    已成交数量    |
+|     deal_fee      |  string  |    成交手续费    |
+|       price       |  string  |       价格       |
+|     avg_price     |  string  |     平均价格     |
+|    deal_stock     |  string  |     成交数量     |
+|   position_type   | integer  |     持仓类型     |
+|     leverage      |  string  |       杠杆       |
+|    update_time    |  float   |     更新时间     |
+|    create_time    |  float   |     创建时间     |
+|      status       | integer  |       状态       |
+|  stop_loss_price  |  string  |     止损价格     |
+| take_profit_price |  string  |     止盈价格     |
+|    client_oid     |  string  |   客户端订单ID   |
+|      target       | integer  |       目标       |
 
 <h2 id="batch-cancel-orders-in-a-single-market">批量取消委托</h2>
 
@@ -1589,9 +1567,9 @@ curl "https://api.bitda.com/open/api/v2/order/cancel/batch"
 
 ### 返回字段
 
-| 参数名 | 参数类型 | 描述  |
-| :----: | :------: | :---: |
-|  data  | integer  |       |
+|  参数名   | 参数类型 |     描述     |
+| :-------: | :------: | :----------: |
+| order_ids |  array   | 成功的订单ID |
 
 <h2 id="cancel-order">取消委托</h2>
 
@@ -1617,16 +1595,18 @@ curl "https://api.bitda.com/open/api/v2/order/cancel"
 {
   "code": 0, 
   "msg": "success", 
-  "data": 1471202902
+  "data": {
+    "order_id": 123456
+  }
 }
 
 ```
 
 ### 返回字段
 
-| 参数名 | 参数类型 | 描述  |
-| :----: | :------: | :---: |
-|  data  | integer  |       |
+|  参数名  | 参数类型 |  描述  |
+| :------: | :------: | :----: |
+| order_id | integer  | 订单ID |
 
 <h2 id="submit-limit-order">限价下单</h2>
 
@@ -1658,16 +1638,18 @@ curl "https://api.bitda.com/open/api/v2/order/cancel"
 {
   "code": 0, 
   "msg": "success", 
-  "data": 1471038436
+  "data": {
+    "order_id": 1471038436
+  }
 }
 
 ```
 
 ### 返回字段
 
-| 参数名 | 参数类型 | 描述  |
-| :----: | :------: | :---: |
-|  data  | integer  |       |
+|  参数名  | 参数类型 |  描述  |
+| :------: | :------: | :----: |
+| order_id | integer  | 订单ID |
 
 <h2 id="get-the-entrusted-order">获取当前委托</h2>
 
@@ -1704,7 +1686,7 @@ curl "https://api.bitda.com/open/api/v2/order/cancel"
         "type": 1, 
         "side": 1, 
         "left": "1.000", 
-        "amount": "1.000", 
+        "volume": "1.000", 
         "filled": "0", 
         "deal_fee": "0", 
         "price": "1700", 
@@ -1717,7 +1699,8 @@ curl "https://api.bitda.com/open/api/v2/order/cancel"
         "status": 1, 
         "stop_loss_price": "-", 
         "take_profit_price": "-",
-        "client_oid":"36341ddd362363263626"
+        "client_oid":"36341ddd362363263626",
+        "target": 0
       }
     ], 
     "page": 1, 
@@ -1730,32 +1713,34 @@ curl "https://api.bitda.com/open/api/v2/order/cancel"
 
 ### 返回字段
 
-|           参数名            | 参数类型 | 描述  |
-| :-------------------------: | :------: | :---: |
-|           records           |  array   |       |
-|          records.0          |  object  |       |
-|     records.0.order_id      | integer  |       |
-|    records.0.position_id    | integer  |       |
-|      records.0.market       |  string  |       |
-|       records.0.type        | integer  |       |
-|       records.0.side        | integer  |       |
-|       records.0.left        |  string  |       |
-|      records.0.amount       |  string  |       |
-|      records.0.filled       |  string  |       |
-|     records.0.deal_fee      |  string  |       |
-|       records.0.price       |  string  |       |
-|     records.0.avg_price     |  string  |       |
-|    records.0.deal_stock     |  string  |       |
-|   records.0.position_type   |  string  |       |
-|     records.0.leverage      |  string  |       |
-|    records.0.update_time    |  float   |       |
-|    records.0.create_time    |  float   |       |
-|      records.0.status       | integer  |       |
-|  records.0.stop_loss_price  |  string  |       |
-| records.0.take_profit_price |  string  |       |
-|            page             | integer  |       |
-|          page_size          | integer  |       |
-|            count            | integer  |       |
+|           参数名            | 参数类型 |       描述       |
+| :-------------------------: | :------: | :--------------: |
+|           records           |  array   |       记录       |
+|          records.0          |  object  |                  |
+|     records.0.order_id      | integer  |      订单ID      |
+|    records.0.position_id    | integer  |      持仓ID      |
+|      records.0.market       |  string  |       市场       |
+|       records.0.type        | integer  |       类型       |
+|       records.0.side        | integer  | 方向，1:卖，2:买 |
+|       records.0.left        |  string  |     剩余数量     |
+|      records.0.volume       |  string  |       数量       |
+|      records.0.filled       |  string  |    已成交数量    |
+|     records.0.deal_fee      |  string  |    成交手续费    |
+|       records.0.price       |  string  |       价格       |
+|     records.0.avg_price     |  string  |     平均价格     |
+|    records.0.deal_stock     |  string  |     成交数量     |
+|   records.0.position_type   |  string  |     持仓类型     |
+|     records.0.leverage      |  string  |       杠杆       |
+|    records.0.update_time    |  float   |     更新时间     |
+|    records.0.create_time    |  float   |     创建时间     |
+|      records.0.status       | integer  |       状态       |
+|  records.0.stop_loss_price  |  string  |     止损价格     |
+| records.0.take_profit_price |  string  |     止盈价格     |
+|    records.0.client_oid     |  string  |   客户端订单ID   |
+|      records.0.target       | integer  |       目标       |
+|            page             | integer  |       页码       |
+|          page_size          | integer  |      页大小      |
+|            count            | integer  |       总数       |
 
 <h2 id="submit-stop-order">条件单下单</h2>
 
@@ -1777,7 +1762,7 @@ curl "https://api.bitda.com/open/api/v2/order/stop"
 |      side       | integer  |    是    |                方向，1 卖，2 买                |
 |   order_price   |  string  |    否    |       订单价格，若留空，则按市场价格下单       |
 |   stop_price    |  string  |    是    |                 条件单触发价格                 |
-|    cut_price    |  string  |    是    |                 最新的市场价格                 |
+|    cut_price    |  string  |    是    |                    止损价格                    |
 | stop_price_type | integer  |    是    | 价格触发类型，1 最新价，2 指数价格，3 标记价格 |
 |    quantity     |  string  |    是    |                      数量                      |
 
@@ -1810,7 +1795,7 @@ curl "https://api.bitda.com/open/api/v2/order/stop/cancel"
 |  参数名  | 参数类型 | 是否必须 |    描述    |
 | :------: | :------: | :------: | :--------: |
 |  market  |  string  |    是    | 市场交易对 |
-| order_id |  string  |    是    | 委托单 ID  |
+| order_id |  string  |    是    |   订单ID   |
 
 > Responds:
 
@@ -1818,15 +1803,17 @@ curl "https://api.bitda.com/open/api/v2/order/stop/cancel"
 {
   "code": 0,
   "msg": "success",
-  "data": 1471202902
+  "data": {
+    "order_id": 1471202902
+  }
 }
 ```
 
 ### 返回字段
 
-| 参数名 | 参数类型 | 描述  |
-| :----: | :------: | :---: |
-|  data  | integer  |       |
+|  参数名  | 参数类型 |  描述  |
+| :------: | :------: | :----: |
+| order_id | integer  | 订单ID |
 
 <aside class="Notice">限速1r/s</aside>
 
@@ -1918,30 +1905,30 @@ curl "https://api.bitda.com/open/api/v2/order/stop/pending"
 
 ### 返回字段
 
-|            参数名             | 参数类型 | 描述  |
-| :---------------------------: | :------: | :---: |
-|            records            |  array   |       |
-|           records.0           |  object  |       |
-|  records.0.contract_order_id  |  string  |       |
-|      records.0.order_id       | integer  |       |
-|     records.0.position_id     | integer  |       |
-|       records.0.market        |  string  |       |
-| records.0.contract_order_type | integer  |       |
-|    records.0.trigger_type     | integer  |       |
-|    records.0.trigger_price    |  string  |       |
-|     records.0.order_price     |  string  |       |
-|        records.0.size         |  string  |       |
-|     records.0.order_time      | integer  |       |
-|     records.0.update_time     | integer  |       |
-|      records.0.cut_price      |  string  |       |
-|       records.0.status        | integer  |       |
-|        records.0.side         | integer  |       |
-|    records.0.position_type    | integer  |       |
-|      records.0.leverage       |  string  |       |
-|     records.0.entrust_id      |  string  |       |
-|             page              | integer  |       |
-|           page_size           | integer  |       |
-|             count             | integer  |       |
+|            参数名             | 参数类型 |     描述     |
+| :---------------------------: | :------: | :----------: |
+|            records            |  array   |     记录     |
+|           records.0           |  object  |              |
+|  records.0.contract_order_id  |  string  |  合约订单ID  |
+|      records.0.order_id       | integer  |    订单ID    |
+|     records.0.position_id     | integer  |    持仓ID    |
+|       records.0.market        |  string  |     市场     |
+| records.0.contract_order_type | integer  | 合约订单类型 |
+|    records.0.trigger_type     | integer  |   触发类型   |
+|    records.0.trigger_price    |  string  |   触发价格   |
+|     records.0.order_price     |  string  |   订单价格   |
+|        records.0.size         |  string  |     数量     |
+|     records.0.order_time      | integer  |   创建时间   |
+|     records.0.update_time     | integer  |   更新时间   |
+|      records.0.cut_price      |  string  |   止损价格   |
+|       records.0.status        | integer  |     状态     |
+|        records.0.side         | integer  |     方向     |
+|    records.0.position_type    | integer  |   持仓类型   |
+|      records.0.leverage       |  string  |     杠杆     |
+|     records.0.entrust_id      |  string  |    委托ID    |
+|             page              | integer  |     页码     |
+|           page_size           | integer  |    页大小    |
+|             count             | integer  |     总数     |
 
 
 <h2 id="get-completed-stop-order">获取历史条件单</h2>
@@ -1955,11 +1942,13 @@ curl "https://api.bitda.com/open/api/v2/order/stop/finished"
 
 ### 请求参数
 
-|  参数名   | 参数类型 | 是否必须 |    描述    |
-| :-------: | :------: | :------: | :--------: |
-|  market   |  string  |    是    | 市场交易对 |
-|   page    | integer  |    是    |    页码    |
-| page_size | integer  |    是    |  每页数量  |
+|   参数名   | 参数类型 | 是否必须 |    描述    |
+| :--------: | :------: | :------: | :--------: |
+|   market   |  string  |    是    | 市场交易对 |
+| start_time | integer  |    是    |  开始时间  |
+| start_time | integer  |    是    |  结束时间  |
+|    page    | integer  |    是    |    页码    |
+| page_size  | integer  |    是    |  每页数量  |
 
 > Responds:
 
@@ -1998,30 +1987,30 @@ curl "https://api.bitda.com/open/api/v2/order/stop/finished"
 
 ### 返回字段
 
-|            参数名             | 参数类型 | 描述  |
-| :---------------------------: | :------: | :---: |
-|            records            |  array   |       |
-|           records.0           |  object  |       |
-|  records.0.contract_order_id  |  string  |       |
-|      records.0.order_id       | integer  |       |
-|     records.0.position_id     | integer  |       |
-|       records.0.market        |  string  |       |
-| records.0.contract_order_type | integer  |       |
-|    records.0.trigger_type     | integer  |       |
-|    records.0.trigger_price    |  string  |       |
-|     records.0.order_price     |  string  |       |
-|        records.0.size         |  string  |       |
-|     records.0.order_time      | integer  |       |
-|     records.0.update_time     | integer  |       |
-|      records.0.cut_price      |  string  |       |
-|       records.0.status        | integer  |       |
-|        records.0.side         | integer  |       |
-|    records.0.position_type    | integer  |       |
-|      records.0.leverage       |  string  |       |
-|     records.0.entrust_id      |  string  |       |
-|             page              | integer  |       |
-|           page_size           | integer  |       |
-|             count             | integer  |       |
+|            参数名             | 参数类型 |     描述     |
+| :---------------------------: | :------: | :----------: |
+|            records            |  array   |     记录     |
+|           records.0           |  object  |              |
+|  records.0.contract_order_id  |  string  |  合约订单ID  |
+|      records.0.order_id       | integer  |    订单ID    |
+|     records.0.position_id     | integer  |    持仓ID    |
+|       records.0.market        |  string  |     市场     |
+| records.0.contract_order_type | integer  | 合约订单类型 |
+|    records.0.trigger_type     | integer  |   触发类型   |
+|    records.0.trigger_price    |  string  |   触发价格   |
+|     records.0.order_price     |  string  |   订单价格   |
+|        records.0.size         |  string  |     数量     |
+|     records.0.order_time      | integer  |   创建时间   |
+|     records.0.update_time     | integer  |   更新时间   |
+|      records.0.cut_price      |  string  |   止损价格   |
+|       records.0.status        | integer  |     状态     |
+|        records.0.side         | integer  |     方向     |
+|    records.0.position_type    | integer  |   持仓类型   |
+|      records.0.leverage       |  string  |     杠杆     |
+|     records.0.entrust_id      |  string  |    委托ID    |
+|             page              | integer  |     页码     |
+|           page_size           | integer  |    页大小    |
+|             count             | integer  |     总数     |
 
 <h2 id="adjust-market-opening-leverage-position-mode">调整持仓杠杆和持仓模式</h2>
 
@@ -2126,16 +2115,16 @@ curl "https://api.bitda.com/open/api/v2/asset/query"
 
 ### 返回字段
 
-|             参数名             | 参数类型 | 描述  |
-| :----------------------------: | :------: | :---: |
-|        data.market_name        |  object  |       |
-|   data.market_name.available   |  string  |       |
-|    data.market_name.frozen     |  string  |       |
-|    data.market_name.margin     |  string  |       |
-| data.market_name.balance_total |  string  |       |
-| data.market_name.profit_unreal |  string  |       |
-|   data.market_name.transfer    |  string  |       |
-|     data.market_name.bonus     |  string  |       |
+|             参数名             | 参数类型 |    描述    |
+| :----------------------------: | :------: | :--------: |
+|        data.market_name        |  object  |            |
+|   data.market_name.available   |  string  |  可用资产  |
+|    data.market_name.frozen     |  string  |  订单冻结  |
+|    data.market_name.margin     |  string  | 持仓保证金 |
+| data.market_name.balance_total |  string  |   总余额   |
+| data.market_name.profit_unreal |  string  | 未实现盈亏 |
+|   data.market_name.transfer    |  string  | 可划转金额 |
+|     data.market_name.bonus     |  string  |   保证金   |
 
 <h2 id="query-asset-bill">获取资产历史</h2>
 
@@ -2167,35 +2156,28 @@ curl "https://api.bitda.com/open/api/v2/asset/history"
   "data": {
     "records": [
       {
-        "id": 1562,
         "time": 1693496496.157132,
-        "user_id": 9108,
         "asset": "USDT",
         "business": "Close pnl",
         "change": "-482.541",
-        "balance": "8300.569"
       }
     ],
     "page": 1,
     "page_size": 1,
-    "count": 406
   }
 }
 ```
 
 ### 返回字段
 
-|       参数名       | 参数类型 | 描述  |
-| :----------------: | :------: | :---: |
-|      records       |  array   |       |
-|     records.0      |  object  |       |
-|    records.0.id    | integer  |       |
-|   records.0.time   |  float   |       |
-| records.0.user_id  | integer  |       |
-|  records.0.asset   |  string  |       |
-| records.0.business |  string  |       |
-|  records.0.change  |  string  |       |
-| records.0.balance  |  string  |       |
+|       参数名       | 参数类型 |     描述     |
+| :----------------: | :------: | :----------: |
+|      records       |  array   |     记录     |
+|     records.0      |  object  |              |
+|   records.0.time   | integer  | 时间. 单位ms |
+|  records.0.asset   |  string  |     资产     |
+| records.0.business |  string  |   业务类型   |
+|  records.0.change  |  string  |   资产变化   |
 
 <h2 id="user-positions">获取当前持仓</h2>
 
@@ -2223,11 +2205,10 @@ curl "https://api.bitda.com/open/api/v2/position/pending"
       "position_id": 2497913,
       "create_time": 1693809270.599202,
       "update_time": 1693809270.599314,
-      "user_id": 9108,
       "market": "BTCUSDT",
       "type": 1,
       "side": 2,
-      "amount": "1.0000",
+      "volume": "1.0000",
       "close_left": "1.0000",
       "open_price": "25992.1",
       "open_margin": "0.01",
@@ -2239,8 +2220,11 @@ curl "https://api.bitda.com/open/api/v2/position/pending"
       "mainten_margin_amount": "129.9605",
       "adl_sort": 5,
       "roe": "-0.0714",
+      "margin_ratio": "0.7",
       "stop_loss_price": "-",
-      "take_profit_price": "-"
+      "take_profit_price": "-",
+      "stop_loss_price_type": 1,
+      "take_profit_price_type": 1
     }
   ]
 }
@@ -2248,31 +2232,33 @@ curl "https://api.bitda.com/open/api/v2/position/pending"
 
 ### 返回字段
 
-|            参数名            | 参数类型 | 描述  |
-| :--------------------------: | :------: | :---: |
-|             data             |  array   |       |
-|            data.0            |  object  |       |
-|      data.0.position_id      | integer  |       |
-|      data.0.create_time      |  float   |       |
-|      data.0.update_time      |  float   |       |
-|        data.0.user_id        | integer  |       |
-|        data.0.market         |  string  |       |
-|         data.0.type          | integer  |       |
-|         data.0.side          | integer  |       |
-|        data.0.amount         |  string  |       |
-|      data.0.close_left       |  string  |       |
-|      data.0.open_price       |  string  |       |
-|      data.0.open_margin      |  string  |       |
-|     data.0.margin_amount     |  string  |       |
-|       data.0.leverage        |  string  |       |
-|     data.0.profit_unreal     |  string  |       |
-|       data.0.liq_price       |  string  |       |
-|    data.0.mainten_margin     |  string  |       |
-| data.0.mainten_margin_amount |  string  |       |
-|       data.0.adl_sort        | integer  |       |
-|          data.0.roe          |  string  |       |
-|    data.0.stop_loss_price    |  string  |       |
-|   data.0.take_profit_price   |  string  |       |
+|            参数名             | 参数类型 |      描述      |
+| :---------------------------: | :------: | :------------: |
+|             data              |  array   |                |
+|            data.0             |  object  |                |
+|      data.0.position_id       | integer  |     持仓ID     |
+|      data.0.create_time       | integer  |    创建时间    |
+|      data.0.update_time       | integer  |    更新时间    |
+|         data.0.market         |  string  |      市场      |
+|          data.0.type          | integer  |      类型      |
+|          data.0.side          | integer  |      方向      |
+|         data.0.volume         |  string  |      数量      |
+|       data.0.close_left       |  string  |  剩余平仓数量  |
+|       data.0.open_price       |  string  |    开仓价格    |
+|      data.0.open_margin       |  string  |   开仓保证金   |
+|     data.0.margin_amount      |  string  |     保证金     |
+|        data.0.leverage        |  string  |      杠杆      |
+|     data.0.profit_unreal      |  string  |   未实现盈亏   |
+|       data.0.liq_price        |  string  |    强平价格    |
+|     data.0.mainten_margin     |  string  |   维持保证金   |
+| data.0.mainten_margin_amount  |  string  | 维持保证金金额 |
+|        data.0.adl_sort        | integer  |      排序      |
+|          data.0.roe           |  string  |     盈亏比     |
+|      data.0.margin_ratio      |  string  |    保证金率    |
+|    data.0.stop_loss_price     |  string  |    止损价格    |
+|   data.0.take_profit_price    |  string  |    止盈价格    |
+|  data.0.stop_loss_price_type  | integer  |  止损价格类型  |
+| data.0.take_profit_price_type | integer  |  止盈价格类型  |
 
 <h2 id="get-adjustable-margin">获取持仓可调整保证金</h2>
 
@@ -2308,13 +2294,13 @@ curl "https://api.bitda.com/open/api/v2/position/margin"
 
 ### 返回字段
 
-|        参数名        | 参数类型 | 描述  |
-| :------------------: | :------: | :---: |
-|        amount        |  string  |       |
-|      available       |  string  |       |
-|       leverage       |  string  |       |
-|    margin_amount     |  string  |       |
-| max_removable_margin |  string  |       |
+|        参数名        | 参数类型 |       描述       |
+| :------------------: | :------: | :--------------: |
+|        amount        |  string  |       数量       |
+|      available       |  string  |    可用保证金    |
+|       leverage       |  string  |       杠杆       |
+|    margin_amount     |  string  |      保证金      |
+| max_removable_margin |  string  | 最大可移除保证金 |
 
 <h2 id="limit-close">限价平仓</h2>
 
@@ -2333,7 +2319,7 @@ curl "https://api.bitda.com/open/api/v2/position/close/limit"
 | position_id | integer  |    是    |    持仓ID    |
 |  quantity   |  string  |    是    |   平仓数量   |
 |    price    |  string  |    是    |   平仓价格   |
-| client_oid  |  string  |    否    | 用户自定义ID |
+| client_oid  |  string  |    否    | 客户端订单ID |
 
 > Responds:
 
@@ -2341,15 +2327,17 @@ curl "https://api.bitda.com/open/api/v2/position/close/limit"
 {
   "code": 0,
   "msg": "success",
-  "data": 325235235
+  "data": {
+    "order_id": 325235235
+  }
 }
 ```
 
 ### 返回字段
 
-| 参数名 | 参数类型 | 描述  |
-| :----: | :------: | :---: |
-|  data  | integer  |       |
+|  参数名  | 参数类型 |  描述  |
+| :------: | :------: | :----: |
+| order_id | integer  | 订单ID |
 
 <h2 id="market-close">市价平仓</h2>
 
@@ -2366,6 +2354,7 @@ curl "https://api.bitda.com/open/api/v2/position/close/market"
 | :---------: | :------: | :------: | :----------: |
 |   market    |  string  |    是    |  市场交易对  |
 | position_id | integer  |    是    |    持仓ID    |
+|  quantity   |  string  |    否    |              |
 | client_oid  |  string  |    否    | 用户自定义ID |
 
 > Responds:
@@ -2374,15 +2363,17 @@ curl "https://api.bitda.com/open/api/v2/position/close/market"
 {
   "code": 0,
   "msg": "success",
-  "data": 235235325
+  "data": {
+    "order_id": 235235325
+  }
 }
 ```
 
 ### 返回字段
 
-| 参数名 | 参数类型 | 描述  |
-| :----: | :------: | :---: |
-|  data  | integer  |       |
+|  参数名  | 参数类型 |  描述  |
+| :------: | :------: | :----: |
+| order_id | integer  | 订单ID |
 
 <h2 id="position-take-profit-and-stop-loss-settingmodification">持仓止盈止损</h2>
 
