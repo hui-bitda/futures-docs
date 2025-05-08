@@ -783,9 +783,9 @@ None
         "50",
         "100"
       ],
-      "name": "BTCUSTT",
+      "name": "BTCUSDT",
       "stock": "BTC",
-      "money": "USTT",
+      "money": "USDT",
       "fee_prec": 5,
       "tick_size": "0.01",
       "stock_prec": 8,
